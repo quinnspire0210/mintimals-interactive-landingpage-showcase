@@ -1,0 +1,1410 @@
+/* =========================================
+   *OCN: CSS styles corrected, animation brainstormed & troubleshooted by ChatGPT(OpenAI, 2025)
+   Code syntax corrected by Copilot(GitHub, 2025)
+   ========================================= */
+
+/* ==============================
+  FONT IMPORT
+============================== */
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+
+/* FONT & COLOR */
+/* Fonts:
+   - Heading: Russo One
+   - Body: Space Grotesk
+*/
+/* Color Palette:
+   #07051B - Space Dark Background
+   #FE347E - Pink Neon
+   #7A3EFF - Purple
+   #C5A3FF - Lavender
+   #FFFFFF - White
+   rgba(226,230,243,0.85) - Light Gray
+*/
+
+/* ==============================
+  VARIABLES
+============================== */
+:root {
+  --color-bg: #07051B;             
+  --color-pink: #FE347E;            
+  --color-purple: #7A3EFF;           
+  --color-lavender: #C5A3FF;        
+  --color-white: #FFFFFF;
+  --color-gray: rgba(226, 230, 243, 0.85);
+  --font-heading: 'Russo One', sans-serif;
+  --font-body: 'Space Grotesk', sans-serif;
+
+  --transition: 0.3s ease-in-out;
+}
+
+/* ==============================
+ GLOBAL DEFAULTS
+============================== */
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-white);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+/* Background and Body Styles
+-------------------------- */
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--color-white);
+  overflow-x: hidden;
+  font-family: var(--font-body);
+
+  /* Deep galaxy background with subtle nebula glow */
+  background:
+    /* Main nebula streak - soft bluish-purple band */
+    radial-gradient(ellipse at 60% 45%, rgba(110, 90, 255, 0.18) 0%, rgba(11, 0, 76, 0) 70%),
+    radial-gradient(ellipse at 30% 65%, rgba(119, 70, 255, 0.12) 0%, rgba(7, 0, 70, 0) 75%),
+    radial-gradient(circle at 15% 25%, rgba(45, 70, 255, 0.1) 0%, transparent 70%),
+    radial-gradient(circle at 85% 75%, rgba(29, 0, 107, 0.475) 0%, transparent 75%),
+    /* Dark base layers for cosmic depth */
+    linear-gradient(180deg, #030314 0%, #06071d 30%, #080a26 60%, #090b2e 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+/* ==================================================
+NAV BAR STYLING
+================================================== */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 90;
+  background: rgba(10, 10, 40, 0.6);
+  backdrop-filter: blur(10px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
+  height: 80px; 
+  display: flex;
+  align-items: center;
+}
+
+body.entered-universe .navbar {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Container */
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 10%;
+  padding: 0 1.5rem; 
+  height: 100%;
+}
+
+body.entered-universe .navbar {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Logo */
+.logo img {
+  width: clamp(120px, 8vw, 150px);
+  height: auto;
+  display: block;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+.logo img:hover {
+  transform: scale(1.05);
+}
+
+/* Navigation Menu (default mobile state) 
+---------------------------*/
+.nav-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 70%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  background: rgba(10, 10, 40, 0.95);
+  backdrop-filter: blur(12px);
+  transition: right 0.4s ease;
+}
+
+/* When menu opens
+---------------------------- */
+.nav-menu.active {
+  right: 0;
+}
+
+.nav-menu a {
+  color: var(--color-white);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+.nav-menu a:hover {
+  color: var(--color-pink);
+}
+
+/* Cart Icon inside navbar 
+------------------------------*/
+.cart-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1.5rem;
+}
+
+.cart-icon img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* Hover effect */
+.cart-icon:hover img {
+  transform: scale(1.15);
+  filter: brightness(0) invert(1) drop-shadow(0 0 6px var(--color-pink));
+}
+
+/* Hamburger icon
+------------------------------ */
+.menu-toggle {
+  display: block;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 101;
+  transition: transform 0.3s ease;
+}
+.menu-toggle img {
+  width: 28px;
+  height: 28px;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.menu-toggle:hover img {
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+
+/* Responsive media queries nav bar
+------------------------ */
+
+@media only screen and (min-width: 768px) {
+  .menu-toggle {
+    display: none;
+  }
+
+  .nav-menu {
+    position: static;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    height: auto;
+    width: auto;
+    gap: 2rem;
+    background: transparent;
+    backdrop-filter: none;
+    right: auto;
+    transition: none;
+  }
+}
+
+
+/* ==================================================
+OPENING FRAME
+================================================== */
+#opening {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--color-bg);
+}
+
+/* Container ------------------------------ */
+.spaceship-window {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Z-index ------------------------------ */
+.background-sky { z-index: 1; }
+.planet         { z-index: 3; }
+.opening-text   { z-index: 5; }
+.window-frame   { z-index: 7; }
+
+/* Background Sky ------------------------------ */
+.background-sky {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  transition: opacity 1.5s ease-out; /* Smooth fading effect */
+  background-color: var(--color-bg);
+  opacity: 80%;
+}
+
+/* Spaceship Frame 
+------------------------------ */
+.window-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  transform-origin: center;
+  transition: transform 1.5s ease, opacity 1.2s ease; /* Smooth transition for scaling and fading */
+}
+
+/* ==================================================
+Planets 
+====================================== */
+.planet {
+  position: absolute;
+  will-change: transform, opacity;
+  transition: transform 0.8s ease, opacity 0.8s ease; /* Smooth transition for transform and opacity changes */
+}
+
+.planet-left {
+  width: clamp(480px, 45vw, 750px);
+  height: auto;
+  left: clamp(-25%, -8vw, 8%);
+  bottom: clamp(-15%, -4vw, -10%);
+}
+
+.planet-right {
+  width: clamp(220px, 25vw, 350px);
+  right: clamp(-25%, -6vw, 12%);
+  top: clamp(20%, 12vw, 15%);
+  animation: floatPlanet 6s ease-in-out infinite; /* Make the right planet float like a cloud*/
+}
+
+.planet-left img {
+  display: block;
+  width: 100%;
+  height: auto;
+  animation: rotatePlanet 25s linear infinite; /* Apply continuous rotation to left planet */
+}
+
+.planet-right img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Planet Animations */
+@keyframes rotatePlanet {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes floatPlanet {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2.5%); }
+}
+
+/* Opening Text 
+-----------------------------------*/
+.opening-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 90%;
+  padding: 0 1rem;
+  transition-property: all 0.8s ease;
+}
+
+.opening-text .logo {
+  width: clamp(8em, 14vw, 10em);
+  margin-bottom: clamp(-2em, -4vw, -5em);
+  opacity: 0.9;
+}
+
+.opening-text h1 {
+  font-size: clamp(2.4rem, 6vw, 6rem);
+  font-weight: 500;
+  line-height: -0.5;
+  color: var(--color-white);
+  letter-spacing: 1px;
+  margin: 0 auto;
+  word-wrap: break-word;
+  text-align: center;
+}
+
+.opening-text h1:hover {
+  transform: translateY(1px) scale(80%); /* Scale slightly on hover */
+  text-shadow: 0 0 30px var(--color-pink);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* Opening text responsive
+-----------------------------------*/
+
+/* Small tablets and above */
+@media only screen and (min-width: 600px) {
+  .opening-text {
+    top: 48%;
+  }
+  .opening-text .logo {
+    width: clamp(10em, 12vw, 14em);
+    margin-bottom: -4em;
+  }
+  .opening-text h1 {
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1.05;
+  }
+}
+
+/* Tablets */
+@media only screen and (min-width: 768px) {
+  .opening-text {
+    top: 46%;
+  }
+  .opening-text h1 {
+    font-size: clamp(4rem, 6vw, 6rem);
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+  .opening-text {
+    top: 45%;
+  }
+  .opening-text .logo {
+    width: 15em;
+    margin-bottom: -5em;
+  }
+  .opening-text h1 {
+    font-size: 6rem;
+  }
+}
+
+
+/* Click Hint + Icon 
+-----------------------------------*/
+.click-hint {
+  margin-top: 40px;
+  font-size: 1.2rem;
+  color: var(--color-white);
+  letter-spacing: 1px;
+}
+.click-icon {
+  margin: 16px auto 0;
+  position: relative;
+  width: 50px;
+  height: auto;
+  animation: float 2.5s ease-in-out;
+  animation-iteration-count: infinite;
+}
+.click-icon svg {
+  width: 50px;
+  height: auto;
+  display: block;
+  margin-inline: auto;
+  fill: var(--color-white);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Icon Float Animation */
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(1em);
+  }
+  100% {
+    transform: translateY(0);
+  } 
+}
+
+/* Responsive media queries for planets
+------------------------------- */
+
+/* Tablet and larger */
+@media only screen and (min-width: 768px) {
+  .planet-left { 
+    bottom: -8%;
+    left: -8%; 
+  }
+  .planet-right { 
+    top: 12%;
+    right: 8%; 
+  }
+}
+
+/* Desktop and larger */
+@media only screen and (min-width: 992px) {
+  .planet-left { 
+    bottom: -6%; left: -6%; 
+  }
+  .planet-right { 
+    top: 10%; right: 6%; 
+  }
+}
+
+/* ============================================================
+   OPENING TO HERO TRANSITION (Triggered by click)
+   ============================================================ */
+
+body.entered-universe #opening .window-frame {
+  transform: scale(1.35);
+  opacity: 0;
+  transition: transform 2s ease, opacity 1.2s ease;
+}
+
+body.entered-universe #opening .background-sky {
+  opacity: 0;
+  transition: opacity 1.8s ease;
+}
+
+body.entered-universe #opening .planet {
+  animation-play-state: paused;
+  transform: translateY(6vh) scale(1.08);
+  opacity: 0;
+  transition: transform 1.8s ease, opacity 1.2s ease;
+}
+
+body.entered-universe #opening .opening-text {
+  opacity: 0;
+  transform: translate(-50%, -58%);
+  transition: opacity 1.8s ease, transform 1.2s ease;
+}
+
+/* Collapse opening frame after entering */
+body.entered-universe #opening {
+  pointer-events: none;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.8s ease 1.5s; /* wait until animation completes */
+}
+
+/* ======================================= */
+/* HERO SECTION
+======================================= */
+
+#hero {
+  position: relative;
+  min-height: 100vh; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  color: var(--color-white);
+}
+
+/* Hero Content */
+.hero-content {
+  text-align: center;
+  margin-bottom: 3rem;
+  z-index: 5;
+  position: relative;
+  padding-top: clamp(4rem, 10vh, 8rem); /* Push content down from top */
+}
+/* push content down more on larger screens */
+@media only screen and (min-width: 768px) { 
+  .hero-content {
+    padding-top: 12vh;
+  }
+}
+
+.hero-content h1 {
+  font-size: clamp(3rem, 6vw, 5rem);
+  margin-bottom: 1rem;
+  line-height: 1.2; /* Slightly taller for better spacing on mobile */
+}
+
+.hero-content .small-title {
+  display: block;
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  color: var(--color-white);
+  letter-spacing: 1px;
+  margin-bottom: -4rem; /* Less negative for mobile readability */
+}
+
+/* Medium screens (tablets, landscape ~768–1024px) */
+@media only screen and (min-width: 768px) {
+  .hero-content .small-title {
+    margin-bottom: -4rem; /* less overlap */
+  }
+}
+
+/* Large screens (desktop and up) */
+@media only screen and (min-width: 1200px) {
+  .hero-content .small-title {
+    margin-bottom: -7rem; /* restored overlap for big layout */
+  }
+}
+
+
+.hero-content .big-title {
+  display: block;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  color: var(--color-pink);
+  text-shadow: 0 0 20px rgba(254, 52, 126, 0.4);
+}
+
+
+.hero-content p {
+  font-size: clamp(0.9rem, 3vw, 1.2rem);
+  line-height: 1.6;
+  color: var(--color-gray);
+  margin-bottom: 2rem;
+}
+
+/* CTA Button */
+
+.cta-btn {
+  display: inline-block;
+  background: var(--color-pink);
+  color: var(--color-white);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.9rem 2rem;
+  border-radius: 10px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(254, 52, 126, 0.4);
+  transition: all 0.3s ease-in-out;
+}
+
+.cta-btn:hover {
+  background: var(--color-purple);
+  box-shadow: 0 0 40px rgba(122, 62, 255, 0.5);
+  transform: translateY(-3px) scale(1.08);
+}
+
+/* Toy Card Carousel
+----------------------------------- */
+
+.toy-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden; /* hides duplicate edges for smooth loop */
+  padding: 3rem 0;
+  transform-style: preserve-3d; /* enables 3D hover effect */
+  perspective: 1200px; /* adds depth perception */
+}
+
+.carousel-track {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  width: max-content;
+  padding: 2rem 0;
+  animation: scrollInfinite 80s linear infinite; /* continuous left scroll */
+  will-change: transform; /* GPU optimization */
+}
+
+.toy-card {
+  width: clamp(140px, 14vw, 220px);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 20px rgba(1, 0, 75, 0.4);
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.4s ease, box-shadow 0.4s ease; /* smooth hover motion */
+  transform: translateZ(0); /* forces GPU acceleration */
+}
+
+.toy-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 20px;
+}
+
+/* hover: pop out slightly in 3D with glow */
+.toy-card:hover {
+  transform: scale(1.1) rotateY(8deg) translateZ(15px);
+  z-index: 10;
+  box-shadow: 0 0 30px rgb(190, 120, 255), 0 0 60px rgb(52, 0, 194);
+}
+
+/* seamless horizontal scroll */
+@keyframes scrollInfinite {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* pause the animation when hovered */
+.toy-carousel:hover .carousel-track {
+  animation-play-state: paused;
+}
+
+/* ==================================================
+   BRAND STORY
+================================================== */
+.brand-story {
+  text-align: center;
+  padding: 8rem 2rem 6rem;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.box-question-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.box-question-img img {
+  width: clamp(100px, 10vw, 150px); 
+  height: auto;
+  animation: floatBox 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+}
+
+.brand-story h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--color-white);
+  margin-bottom: 1rem;
+}
+
+.brand-story p {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  color: var(--color-gray);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.brand-story .cta-btn {
+  margin-top: 3rem;
+}
+
+
+/* Floating animation for the 3D box image*/
+@keyframes floatBox {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* ==================================================
+   FLOATING PLANETS BACKGROUND DECORATION
+   (fade in/out based on scroll visibility)
+================================================== */
+
+.floating-planets {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 0;
+  opacity: 0; /* hidden by default */
+  transition: opacity 1.5s ease; /* smooth fade transition */
+}
+
+/* When visible during scroll */
+.floating-planets.visible {
+  opacity: 1;
+}
+
+/* Right planet — large, closer, slightly brighter
+-------------------------------------------------- */
+.floating-planets::before {
+  content: "";
+  position: absolute;
+  top: 5%;         /* raised higher for vertical separation */
+  right: -14%;     /* pushed further out for more perspective */
+  width: 640px;
+  height: 640px;
+  background: url("../img/planet-deco-big.png") no-repeat center;
+  background-size: contain;
+
+  filter: brightness(1.1);
+  opacity: 0.85;
+  transform: rotate(-8deg);
+  animation: floatRightPlanet 6s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+/* Left planet — smaller, farther, softer blur
+-------------------------------------------------- */
+.floating-planets::after {
+  content: "";
+  position: absolute;
+  bottom: -20%;    
+  left: -10%;      
+  width: 320px;
+  height: 320px;
+  background: url("../img/planet-deco-small.png") no-repeat center;
+  background-size: contain;
+
+  filter: brightness(0.85);
+  opacity: 0.6;
+  transform: rotate(10deg);
+  animation: floatLeftPlanet 7s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+/* ==================================================
+   Floating animation keyframes
+================================================== */
+
+@keyframes floatRightPlanet {
+  0% {
+    transform: translateY(0) rotate(-8deg);
+  }
+  100% {
+    transform: translateY(-40px) rotate(-5deg);
+  }
+}
+
+@keyframes floatLeftPlanet {
+  0% {
+    transform: translateY(0) rotate(10deg);
+  }
+  100% {
+    transform: translateY(28px) rotate(7deg);
+  }
+}
+/* Responsive media queries for floating planets
+-------------------------------- */
+
+/* Mobile screen */
+@media only screen and (min-width: 320px) {
+  .floating-planets::before {
+    right: -22%;
+    top: 10%;
+    width: 320px;
+    height: 320px;
+    opacity: 0.7;
+  }
+
+  .floating-planets::after {
+    left: -20%;
+    bottom: 5%;
+    width: 180px;
+    height: 180px;
+    opacity: 0.5;
+  }
+}
+
+/* Tablets */
+@media only screen and (min-width: 768px) {
+  .floating-planets::before {
+    right: -16%;
+    top: 12%;
+    width: 480px;
+    height: 480px;
+    opacity: 0.8;
+  }
+
+  .floating-planets::after {
+    left: -12%;
+    bottom: 8%;
+    width: 260px;
+    height: 260px;
+    opacity: 0.55;
+  }
+}
+
+/* Large desktops */
+@media only screen and (min-width: 1200px) {
+  .floating-planets::before {
+    right: -12%;
+    top: 15%;
+    width: 640px;
+    height: 640px;
+    opacity: 0.85;
+  }
+
+  .floating-planets::after {
+    left: -8%;
+    bottom: 10%;
+    width: 320px;
+    height: 320px;
+    opacity: 0.6;
+  }
+}
+
+/* ==================================================
+   FEATURED COLLECTION
+================================================== */
+
+
+#ftr-collection {
+  padding: 10rem 2rem; 
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+#ftr-collection .section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--color-white);
+  margin-bottom: 12rem;
+}
+
+/* Grid: 2 toys per row */
+.ftr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 10rem 6rem;
+  justify-items: center;
+  align-items: start;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Card container */
+.toy-card.ftr {
+  position: relative;
+  background: rgba(94, 40, 211, 0.2);
+  border-radius: 28px;
+  box-shadow: 0 0 40px rgba(20, 0, 60, 0.4);
+  backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 460px;
+  padding-top: 10rem; 
+  padding-bottom: 1.2rem; 
+  overflow: visible;  
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  cursor: default;
+}
+
+/* Make cards staggered (each row slightly offset) */
+.toy-card.ftr:nth-child(odd) {
+  margin-top: 3rem; /* card 1 & 3 higher */
+  transform: translateY(10px);
+}
+.toy-card.ftr:nth-child(even) {
+  margin-top: -2rem; /* card 2 & 4 higher */
+  transform: translateY(-20px);
+}
+
+
+/* Toy image wrapper (to make it overflow above the card) */
+.toy-img-wrap {
+  position: absolute;
+  top: -8rem; /* how much toy pops out */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 75%;
+  z-index: 2;
+}
+
+.toy-img-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.4s ease;
+  filter: drop-shadow(0 0 25px rgba(106, 97, 165, 0.469));
+  animation: floatToy 5s ease-in-out infinite;
+}
+
+/* HOVER EFFECTS
+-------------------------------- */
+
+/* When hovering ALL */
+.ftr-grid:hover .toy-card.ftr {
+  opacity: 0.5;
+  filter: brightness(0.8);
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+/* When hovering a SINGLE card */
+.ftr-grid .toy-card.ftr:hover {
+  opacity: 1;
+  filter: brightness(1.1);
+  box-shadow: 0 0 40px rgba(254, 52, 126, 0.4), 0 0 80px rgba(254, 52, 126, 0.2); /* glow pink */
+  border: 1.5px solid rgba(254, 52, 126, 0.6); /* pink border */
+  background: rgba(99, 46, 173, 0.323); /* slightly brighter bg */
+  transform: translateY(-10px);
+  z-index: 5;
+  cursor: pointer;
+  transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+/* Hover only scales the toy */
+.toy-card.ftr:hover img {
+  transform: scale(1.2);
+}
+
+/* Remove hover effects from card itself */
+.toy-card.ftr:hover {
+  transform: none;
+  box-shadow: 0 0 40px rgba(20, 0, 60, 0.4);
+}
+
+/* Floating animation 
+-------------------------------- */
+@keyframes floatToy {
+  0%, 100% { 
+    transform: translateY(0); 
+  }
+  50% { 
+    transform: translateY(-12px); 
+  }
+}
+
+/* Toy Info (text area) */
+.toy-info {
+  text-align: center;
+  padding: 0 1.5rem 2rem;
+  margin-top: 2rem;
+  flex-grow: 1;
+}
+
+.toy-info h3 {
+  font-size: 1.6rem;
+  color: var(--color-white);
+  margin-bottom: 0.4rem;
+}
+
+.toy-collection {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-purple);
+  margin-bottom: 0.5rem;
+}
+
+.toy-price {
+  color: var(--color-pink);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+
+.toy-desc {
+  color: var(--color-gray);
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 300px;
+  margin: 0 auto;
+}
+/* CTA button in featured collection
+-------------------------------- */
+#ftr-collection .cta-btn {
+  margin-top: 1.5rem; /* tạo khoảng cách với text phía trên */
+  display: inline-block;
+  background: var(--color-pink);
+  color: var(--color-white);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.8rem 2rem;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: none; /* bỏ viền đen mờ */
+  border: none;
+  transition: all 0.3s ease-in-out;
+}
+
+#ftr-collection .cta-btn:hover {
+  background: var(--color-purple);
+  box-shadow: 0 0 30px rgba(122, 62, 255, 0.4);
+  transform: translateY(-3px);
+}
+
+/* ==================================================
+   IMPACT STATS SECTION
+================================================== */
+
+/* Outer wrapper / base container */
+.impact-stats-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10rem 0;
+  z-index: 1;
+  overflow: visible;
+}
+
+/* Decorative horizon blur background 
+   ----------------------------------------*/
+.impact-stats-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* full width and height */
+  background: url("../img/bg-horizon.jpg") no-repeat center bottom;
+  background-size: cover;
+  background-position: center bottom;
+  z-index: 0;
+  pointer-events: none;
+
+  /* Add smooth fade top & bottom to blend with page background */
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 1) 25%,
+    rgba(0, 0, 0, 1) 75%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 1) 25%,
+    rgba(0, 0, 0, 1) 75%,
+    transparent 100%
+  );
+
+  opacity: 0.9; /* optional, for a soft look */
+  will-change: opacity;
+  transition: opacity 1s ease;
+}
+/* Main stats container
+----------------------------*/
+.impact-stats {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8rem;
+  text-align: center;
+  padding: 6rem 2rem;
+  margin: 6rem auto;
+  width: 80%;
+  z-index: 2; /* ensures stats box stays above the sphere */
+
+  /* Frosted glass visual styling */
+  background: rgba(94, 40, 211, 0.2);
+  border: 1px solid rgba(129, 107, 203, 0.176);
+  border-radius: 24px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 40px rgba(20, 0, 60, 0.25);
+}
+
+/* Stats content
+------------------------------*/
+
+/* Large number styling */
+.stat h3 {
+  font-size: clamp(4rem, 5vw, 8rem);
+  color: var(--color-white);
+  transition: transform 0.3s ease, color 0.3s ease;
+  margin-top: -0.01rem;
+}
+
+/* Hover effect for numbers */
+.stat:hover h3 {
+  transform: scale(1.15);
+  color: var(--color-pink);
+}
+
+/* Description text under each stat */
+.stat p {
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 400;
+  margin-top: -4rem;
+  text-wrap: wrap;
+}
+
+
+/* ==================================================
+   FAQ SECTION
+================================================== */
+
+.faq-section {
+  padding: 8rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 3;
+}
+
+.faq-section .section-title {
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--color-white);
+  margin-bottom: 3rem;
+}
+
+/* FAQ Container */
+.faq-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Accordion Item Wrapper */
+.faq-item {
+  background: rgba(117, 83, 255, 0.12);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  transition: background 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.faq-item.active {
+  background: rgba(117, 83, 255, 0.22);
+  border: 1px solid rgba(254, 52, 126, 0.4);
+  box-shadow: 0 0 15px rgba(254, 52, 126, 0.15);
+}
+
+/* Accordion Question */
+.faq-question {
+  background: transparent;
+  border: none;
+  color: var(--color-white);
+  font-size: 1.1rem;
+  text-align: left;
+  width: 100%;
+  padding: 1.2rem 1.6rem;
+  cursor: pointer;
+  font-family: var(--font-body);
+  position: relative;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.faq-question:hover {
+  background: rgba(117, 83, 255, 0.25);
+}
+
+/* Plus/Minus Icon */
+.faq-question::after {
+  content: '+';
+  position: absolute;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-pink);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.faq-item.active .faq-question::after {
+  content: '–';
+  transform: rotate(180deg);
+  color: var(--color-pink);
+}
+
+/* Accordion Answer */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  background: transparent;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 250px;
+  opacity: 1;
+}
+
+/* Answer Text */
+.faq-answer p {
+  padding: 1rem 1.6rem 1.8rem;
+  color: var(--color-gray);
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+
+/* ==================================================
+   CONTACT CTA SECTION
+================================================== */
+
+.contact-cta {
+  padding: 10rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+  background: url('../img/contact-bg.jpg') no-repeat center / cover;
+}
+
+.cta-box {
+  background: linear-gradient(145deg, rgba(122, 62, 255, 0.25), rgba(195, 94, 255, 0.18));
+  border-radius: 32px;
+  padding: 4rem 3rem;
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 40px rgba(122, 62, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 0 2rem;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.cta-box:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 60px rgba(195, 94, 255, 0.35);
+}
+
+.contact-cta h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--color-white);
+  margin-bottom: 2rem;
+  letter-spacing: 0.5px;
+}
+
+.contact-cta .cta-btn {
+  padding: 1rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 30px rgba(254, 52, 126, 0.3);
+  transition: all 0.3s ease;
+}
+
+.contact-cta .cta-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: var(--color-pink);
+  box-shadow: 0 0 40px rgba(254, 52, 126, 0.5);
+}
+
+.cta-note {
+  font-size: 1rem;
+  color: var(--color-white);
+  margin-top: 0.5rem;
+}
+
+
+/* ==================================================
+   FOOTER
+================================================== */
+.site-footer {
+  background: radial-gradient(circle at 50% 10%, #0a0824, #050416);
+  color: var(--color-white);
+  padding: 5rem 2rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-logo img {
+  width: 300px;
+  margin-bottom: 1rem;
+  filter: brightness(0) invert(1);
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+  padding: 0;
+}
+
+.footer-links a {
+  color: var(--color-gray);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--color-pink);
+}
+
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.footer-socials img {
+  width: 26px;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.footer-socials a:hover img {
+  transform: scale(1.2);
+  filter: brightness(0) invert(1) drop-shadow(0 0 8px var(--color-pink));
+}
+
+.footer-subscribe {
+  margin: 2rem auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-subscribe input {
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  border: none;
+  width: 260px;
+  font-size: 1rem;
+}
+
+.footer-subscribe .cta-btn {
+  padding: 0.8rem 1.5rem;
+  font-weight: 600;
+}
+
+.footer-copy {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: var(--color-gray);
+  opacity: 0.7;
+}
+

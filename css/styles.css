@@ -1412,8 +1412,7 @@ body.entered-universe #opening {
 .product-link {
   text-decoration: none;
   color: inherit;
-  display: flex;
-  flex-direction: column;
+  display: block;
 }
 
 .product-link:hover {
@@ -1424,4 +1423,3 @@ body.entered-universe #opening {
 .product-link .cta-btn {
   pointer-events: none;
 }
-

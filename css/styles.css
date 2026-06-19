@@ -1408,3 +1408,20 @@ body.entered-universe #opening {
   opacity: 0.7;
 }
 
+/* Product link styles */
+.product-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-link:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.product-link .cta-btn {
+  pointer-events: none;
+}
+
